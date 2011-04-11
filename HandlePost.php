@@ -1,0 +1,34 @@
+<?php
+class HandlePost {
+    private $_fields = array();
+
+    public function __construct($postArray)
+    {
+        foreach ($postArray as $key => $value) {
+            $this->_fields[$this->_sanitize($key)] = $this->_sanitize($value);
+        }
+    }
+
+    private function _sanitize($input)
+    {
+        if (is_array($input)){
+            foreach ($input as $key => $value){
+                $input[$key] = $this->_sanitize($value);
+            }
+        } else {
+            $input = stripslashes($input);
+            $input = htmlentities($input);
+            $input = strip_tags($input);
+        }
+        return $input;
+    }
+
+    public function __get($key)
+    {
+        if (array_key_exists($key, $this->_fields)) {
+            return $this->_fields[$key];
+        } else {
+            return null;
+        }
+    }
+}
