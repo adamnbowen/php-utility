@@ -19,13 +19,17 @@ class HandlePost {
             $input = stripslashes($input);
             $input = htmlentities($input);
             $input = strip_tags($input);
+            $input = trim($input);
+
         }
         return $input;
     }
 
     public function __get($key)
     {
-        if (array_key_exists($key, $this->_fields)) {
+        if (array_key_exists($key, $this->_fields)
+            && !empty($this->_fields[$key])
+        ) {
             return $this->_fields[$key];
         } else {
             return null;
