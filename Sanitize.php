@@ -2,9 +2,9 @@
 class Sanitize {
     private $_fields = array();
 
-    public function __construct($postArray)
+    public function __construct($uncleanArray)
     {
-        foreach ($postArray as $key => $value) {
+        foreach ($uncleanArray as $key => $value) {
             $this->_fields[$this->_sanitize($key)] = $this->_sanitize($value);
         }
     }
