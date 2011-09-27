@@ -16,10 +16,7 @@ class HandlePost {
                 $input[$key] = $this->_sanitize($value);
             }
         } else {
-            $input = stripslashes($input);
-            $input = htmlentities($input);
-            $input = strip_tags($input);
-            $input = trim($input);
+            $input = stripslashes(htmlentities(strip_tags(trim($input))));
 
         }
         return $input;
