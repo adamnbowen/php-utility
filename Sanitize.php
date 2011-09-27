@@ -1,5 +1,5 @@
 <?php
-class HandlePost {
+class Sanitize {
     private $_fields = array();
 
     public function __construct($postArray)
