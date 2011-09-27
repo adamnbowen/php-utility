@@ -17,7 +17,6 @@ class HandlePost {
             }
         } else {
             $input = stripslashes(htmlentities(strip_tags(trim($input))));
-
         }
         return $input;
     }
