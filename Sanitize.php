@@ -15,10 +15,8 @@ class Sanitize {
             foreach ($input as $key => $value){
                 $input[$key] = $this->_sanitize($value);
             }
-        } else {
-            $input = stripslashes(htmlentities(strip_tags(trim($input))));
         }
-        return $input;
+        return stripslashes(htmlentities(strip_tags(trim($input))));
     }
 
     public function __get($key)
