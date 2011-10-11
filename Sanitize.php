@@ -11,14 +11,30 @@ class Sanitize {
 
     private function _sanitize($input)
     {
-        if (is_array($input)){
+        if (!is_object($input) && gettype($input) == 'object') {
+            $input = $this->_fixObject($input);
+        }
+        if (is_array($input) || is_object($input)) {
+            $output = array();
             foreach ($input as $key => $value){
-                $input[$key] = $this->_sanitize($value);
+                $output[$key] = $this->_sanitize($value);
             }
-            return $input;
+            return $output;
         }
         return stripslashes(htmlentities(strip_tags(trim($input))));
     }
+
+    /**
+     * _fixObject Removes the __PHP_Incomplete_Class crap from the object, so
+     * is_object() will correctly identify $input as an object
+     * 
+     * @param object $object The "broken" object
+     * @return object The "fixed" object
+     */
+    private function _fixObject($object) {
+        return unserialize(serialize($object));
+    }
+
 
     public function __get($key)
     {
