@@ -11,9 +11,8 @@ class Sanitize {
 
     private function _sanitize($input)
     {
-        if (!is_object($input) && gettype($input) == 'object') {
-            $input = $this->_fixObject($input);
-        }
+        $input = $this->_fixIncompleteObject($input);
+
         if (is_array($input) || is_object($input)) {
             $output = array();
             foreach ($input as $key => $value){
@@ -25,14 +24,19 @@ class Sanitize {
     }
 
     /**
-     * _fixObject Removes the __PHP_Incomplete_Class crap from the object, so
-     * is_object() will correctly identify $input as an object
-     * 
+     * _fixIncompleteObject repairs an object if it is incomplete.
+     *
+     * Removes the __PHP_Incomplete_Class crap from the object, so is_object()
+     * will correctly identify $input as an object
+     *
      * @param object $object The "broken" object
      * @return object The "fixed" object
      */
-    private function _fixObject($object) {
-        return unserialize(serialize($object));
+    private function _fixIncompleteObject($input) {
+        if (!is_object($input) && gettype($input) == 'object') {
+            return unserialize(serialize($input));
+        }
+        return $input;
     }
 
     public function __get($key)
