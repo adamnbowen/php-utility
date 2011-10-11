@@ -1,11 +1,11 @@
 <?php
 class Sanitize {
-    private $_fields = array();
+    private $_sanitizedArray = array();
 
     public function __construct($uncleanArray)
     {
         foreach ($uncleanArray as $key => $value) {
-            $this->_fields[$this->_sanitize($key)] = $this->_sanitize($value);
+            $this->_sanitizedArray[$this->_sanitize($key)] = $this->_sanitize($value);
         }
     }
 
@@ -35,13 +35,12 @@ class Sanitize {
         return unserialize(serialize($object));
     }
 
-
     public function __get($key)
     {
-        if (array_key_exists($key, $this->_fields)
-            && !empty($this->_fields[$key])
+        if (array_key_exists($key, $this->_sanitizedArray)
+            && !empty($this->_sanitizedArray[$key])
         ) {
-            return $this->_fields[$key];
+            return $this->_sanitizedArray[$key];
         } else {
             return null;
         }
