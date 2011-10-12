@@ -13,6 +13,9 @@ $sanitized = new Sanitize($_POST);
 $sanitized->foo; // == $_POST['foo'] OR null
 ```
 
+### TODO
+* Perhaps Sanitize should provide a way to access the entire sanitized array or object all at once, so it may be iterated over, etc.
+
 License
 =======
 This project is licensed under the [DBAD license](http://dbad-license.org/license).
