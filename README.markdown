@@ -15,6 +15,16 @@ $sanitized->foo; // == $_POST['foo'] OR null
 
 ### TODO
 * Perhaps Sanitize should provide a way to access the entire sanitized array or object all at once, so it may be iterated over, etc.
+* Add Docblocks
+
+Coding Standards
+================
+I'm quite obsessive about how I format my code, though I can't say that I adhere strictly to a specific set of guidelines.  In general, I try to follow guidelines in this order:
+
+1. [Zend Framework Coding Standards](http://framework.zend.com/manual/en/coding-standard.html)
+2. [PEAR Coding standards](http://pear.php.net/manual/en/standards.php)
+
+And then sometimes I make decisions that a particular rule is stupid, and choose that.  To my knowledge that has only happened once recently---I don't want to do 4 space tabs anymore.  I have ruby envy, and think that 2 is quite enough.
 
 License
 =======
