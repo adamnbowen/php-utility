@@ -16,6 +16,10 @@ $sanitized->foo; // == $_POST['foo'] OR null
 ### TODO
 * Perhaps Sanitize should provide a way to access the entire sanitized array or object all at once, so it may be iterated over, etc.
 
+Compatibility
+=============
+Anything I put here should be usable with PHP 5.2 and above, as most of the servers I work with are still on 5.2.x
+
 Coding Standards
 ================
 I'm quite obsessive about how I format my code, though I can't say that I adhere strictly to a specific set of guidelines.  In general, I try to follow guidelines in this order:
