@@ -10,7 +10,7 @@ Currently, I've only got one class in here---Sanitize.php.  Just as the name sug
 
 ```php
 <?php
-$sanitized = new Sanitize($_POST);
+$sanitized = Sanitize::Clean($_POST);
 $sanitized->foo; // == $_POST['foo'] OR null
 ```
 
