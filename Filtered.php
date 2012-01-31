@@ -26,18 +26,18 @@ class Filtered{
    */
   public function __get($key)
   {
-	if (array_key_exists($key, $this->_sanitizedArray)
-		&& !empty($this->_sanitizedArray[$key])
-	) {
-	  return $this->_sanitizedArray[$key];
-	} else {
-	  return null;
-	}
+    if (array_key_exists($key, $this->_sanitizedArray)
+        && !empty($this->_sanitizedArray[$key])
+    ) {
+      return $this->_sanitizedArray[$key];
+    } else {
+      return null;
+    }
   }
 
   public function __set($key, $value)
   {
-	$this->_sanitizedArray[$key] = $value;
+    $this->_sanitizedArray[$key] = $value;
   }
 
 }

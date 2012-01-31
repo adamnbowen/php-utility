@@ -18,14 +18,14 @@ class Sanitize {
    */
   public static function Clean($uncleanArray)
   {
-	$filtered = new Filtered();
+    $filtered = new Filtered();
     foreach ($uncleanArray as $key => $value) {
-	  $sanitizedKey = self::_sanitize($key);
-	  $sanitizedValue = self::_sanitize($value);
-	  $filtered->$sanitizedKey = $sanitizedValue;
+      $sanitizedKey = self::_sanitize($key);
+      $sanitizedValue = self::_sanitize($value);
+      $filtered->$sanitizedKey = $sanitizedValue;
     }
 
-	return $filtered;
+    return $filtered;
   }
 
   /**
