@@ -4,28 +4,28 @@
  * feature of returning null for nonexistent properties.
  * 
  * @author Adam Bowen <adamnbowen@gmail.com>
+ * @author Russell Stringer <r.stringer@gmail.com>
  * @license http://dbad-license.org/license DBAD license
  */
+require_once('Filtered.php');
 class Sanitize {
-  /**
-   * _sanitizedArray the sanitized result of the array/object passed to the
-   * constructor
-   * 
-   * @var array
-   */
-  private $_sanitizedArray = array();
 
   /**
-   * __construct Sanitize the keys and values of the $uncleanArray.
+   * Clean Sanitize the keys and values of the $uncleanArray
    * 
    * @param mixed $uncleanArray 
-   * @return void
+   * @return Filtered object containing the sanitized values
    */
-  public function __construct($uncleanArray)
+  public static function Clean($uncleanArray)
   {
+	$filtered = new Filtered();
     foreach ($uncleanArray as $key => $value) {
-      $this->_sanitizedArray[$this->_sanitize($key)] = $this->_sanitize($value);
+	  $sanitizedKey = self::_sanitize($key);
+	  $sanitizedValue = self::_sanitize($value);
+	  $filtered->$sanitizedKey = $sanitizedValue;
     }
+
+	return $filtered;
   }
 
   /**
@@ -40,12 +40,12 @@ class Sanitize {
    */
   private function _sanitize($input)
   {
-    $input = $this->_fixIncompleteObject($input);
+    $input = self::_fixIncompleteObject($input);
 
     if (is_array($input) || is_object($input)) {
       $output = array();
       foreach ($input as $key => $value){
-        $output[$key] = $this->_sanitize($value);
+        $output[$key] = self::_sanitize($value);
       }
       return $output;
     }
@@ -68,22 +68,4 @@ class Sanitize {
     return $input;
   }
 
-  /**
-   * __get If a nonexistent property of a Sanitize object is called, this
-   * function checks to see if the property corresponds to a key of
-   * $this->_sanitizedArray, and returns that, otherwise it returns null.
-   * 
-   * @param mixed $key 
-   * @return void
-   */
-  public function __get($key)
-  {
-    if (array_key_exists($key, $this->_sanitizedArray)
-      && !empty($this->_sanitizedArray[$key])
-    ) {
-      return $this->_sanitizedArray[$key];
-    } else {
-      return null;
-    }
-  }
 }
