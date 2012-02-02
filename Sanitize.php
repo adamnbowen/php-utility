@@ -62,7 +62,8 @@ class Sanitize
    * @param object $object The "broken" object
    * @return object The "fixed" object
    */
-  private function _fixIncompleteObject($input) {
+  private function _fixIncompleteObject($input)
+  {
     if (!is_object($input) && gettype($input) == 'object') {
       return unserialize(serialize($input));
     }
