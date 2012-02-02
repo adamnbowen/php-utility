@@ -7,7 +7,8 @@
  * @author Adam Bowen <adamnbowen@gmail.com>
  * @license http://dbad-license.org/license DBAD license
  */
-class Filtered{
+class Filtered
+{
 
   /**
    * _sanitizedArray the sanitized result of the array/object 

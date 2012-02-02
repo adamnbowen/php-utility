@@ -8,7 +8,8 @@
  * @license http://dbad-license.org/license DBAD license
  */
 require_once('Filtered.php');
-class Sanitize {
+class Sanitize
+{
 
   /**
    * Clean Sanitize the keys and values of the $uncleanArray
