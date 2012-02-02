@@ -12,15 +12,15 @@ class Sanitize
 {
 
   /**
-   * Clean Sanitize the keys and values of the $uncleanArray
+   * Clean Sanitize the keys and values of the $unclean object/array
    * 
-   * @param mixed $uncleanArray 
+   * @param mixed $unclean
    * @return Filtered object containing the sanitized values
    */
-  public static function Clean($uncleanArray)
+  public static function Clean($unclean)
   {
     $filtered = new Filtered();
-    foreach ($uncleanArray as $key => $value) {
+    foreach ($unclean as $key => $value) {
       $sanitizedKey = self::_sanitize($key);
       $sanitizedValue = self::_sanitize($value);
       $filtered->$sanitizedKey = $sanitizedValue;
