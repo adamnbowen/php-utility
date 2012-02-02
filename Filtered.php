@@ -11,26 +11,26 @@ class Filtered
 {
 
   /**
-   * _sanitizedArray the sanitized result of the array/object 
+   * _filtered the object accessed via __get() and __set()
    * 
    * @var array
    */
-  private $_sanitizedArray = array();
+  private $_filtered = array();
 
   /**
-   * __get If a nonexistent property of a Sanitize object is called, this
+   * __get If a nonexistent property of a Filtered object is called, this
    * function checks to see if the property corresponds to a key of
-   * $this->_sanitizedArray, and returns that, otherwise it returns null.
+   * $this->_filtered, and returns that, otherwise it returns null.
    * 
    * @param mixed $key 
    * @return void
    */
   public function __get($key)
   {
-    if (array_key_exists($key, $this->_sanitizedArray)
-        && !empty($this->_sanitizedArray[$key])
+    if (array_key_exists($key, $this->_filtered)
+        && !empty($this->_filtered[$key])
     ) {
-      return $this->_sanitizedArray[$key];
+      return $this->_filtered[$key];
     } else {
       return null;
     }
@@ -38,7 +38,7 @@ class Filtered
 
   public function __set($key, $value)
   {
-    $this->_sanitizedArray[$key] = $value;
+    $this->_filtered[$key] = $value;
   }
 
 }
