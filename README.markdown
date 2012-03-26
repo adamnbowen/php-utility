@@ -6,7 +6,7 @@ What is in here?
 ================
 Sanitize.php
 ------------
-Currently, I've only got one class in here—Sanitize.php.  Just as the name suggests, this class is for sanitizing things that you stick into it---it started out as a humble `$_POST` handler, but then I realized that because of the goodness of Dependency Injection, it was much more useful than that.  So it'll clean up any array or object you like, and allow you to access the keys of said array or object like so:
+Just as the name suggests, this class is for sanitizing things that you stick into it---it started out as a humble `$_POST` handler, but then I realized that because of the goodness of Dependency Injection, it was much more useful than that.  So it'll clean up any array or object you like, and allow you to access the keys of said array or object like so:
 
 ```php
 <?php
@@ -16,6 +16,13 @@ $sanitized->foo; // == $_POST['foo'] OR null
 
 ### TODO
 * Perhaps Sanitize should provide a way to access the entire sanitized array or object all at once, so it may be iterated over, etc.
+
+Slideshowpro_Interface.php
+------------
+Simple class that provides some quick ways of pulling information out of a SlideshowPro Director install. Right now it needs hardcoded connection strings, check $_connectString, $_user and $_pass. Use Slideshowpro_Interface::getActiveAlbums() to get the albums marked 'active' and information about the album thumbnails. Use Slideshowpro_Interface::getImageList() to get the image IDs for a specific album.
+
+### TODO
+* Provide a constructor or initializer to set up database connection information.
 
 Compatibility
 =============
