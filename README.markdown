@@ -24,6 +24,29 @@ Simple class that provides some quick ways of pulling information out of a Slide
 ### TODO
 * Provide a constructor or initializer to set up database connection information.
 
+Csv_Import.php
+------------
+Quick way to import a csv file into a database table. Use:
+
+```php
+<?php
+$importer = new Csv_Import($path_to_csv, TRUE);
+$importer->setupDatabase($connection_string, $username, $password);
+$importer->importTo($table_name);
+```
+
+If the second parameter to the constructor is true, the import will use the first line of the csv file as the column names in the database table, and skip that line during the import. If you need to use a different column mapping, do the following:
+
+```php
+<?php
+$importer = new Csv_Import($path_to_csv, FALSE);
+$importer->setupDatabase($connection_string, $username, $password);
+$importer->setMapping(array('Column_One', 'Column_Two', 'Column_Three'));
+$importer->importTo($table_name);
+```
+
+You can also send TRUE to the constructor and set a different mapping if you need to skip the first line of the csv.
+
 Compatibility
 =============
 Anything I put here should be usable with PHP 5.2 and above, as most of the servers I work with are still on 5.2.x
