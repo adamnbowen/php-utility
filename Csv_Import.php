@@ -27,10 +27,16 @@ class CSV_Import{
     private $_csvHandle;
 
     /**
-     * Indexed array of the column names to import into. 
-     * @var array
+     * Parenthesized list of column names
+     * @var string
      */
     private $_colMapping;
+
+    /**
+     * Number of columns being imported
+     * @var int
+     */
+    private $_colCount;
 
     /**
      * Set up the file handle and default column mapping
@@ -42,7 +48,7 @@ class CSV_Import{
     public function __construct($filePath, $firstLineHeadings = true)
     {
         if (!file_exists($filePath) || !is_readable($filePath)){
-            throw Exception("File missing or unreadable");
+            throw new Exception("File missing or unreadable");
         }
         $this->_csvHandle = fopen($filePath, 'r');
 
@@ -61,14 +67,14 @@ class CSV_Import{
     public function importTo($tableName)
     {
         if (empty($this->_dbConn)){
-            throw Exception("No database connection");
+            throw new Exception("No database connection");
         }
 
         if (empty($this->_csvHandle)){
-            throw Exception("No file handle");
+            throw new Exception("No file handle");
         }
         $this->_table = $tableName;
-        $this->_dbConn->query("TRUNCATE TABLE $tablName");
+        $this->_dbConn->query("TRUNCATE TABLE $tableName");
         $this->_doImport();
     }
 
@@ -81,7 +87,7 @@ class CSV_Import{
      */
     public function setupDatabase($conn, $user, $pass)
     {
-        $this->_dbConn = new PDO($conn, $_user, $pass);
+        $this->_dbConn = new PDO($conn, $user, $pass);
     }
 
     /**
@@ -93,6 +99,7 @@ class CSV_Import{
      */
     public function setMapping($mapArray)
     {
+        $this->_colCount = sizeof($mapArray);
         $this->_colMapping = $this->_parenthesize($mapArray);
     }
 
@@ -101,17 +108,18 @@ class CSV_Import{
      */
     private function _doImport()
     {
-        while (($row = $this->_getRow()) !== FALSE){
-            $this->_insertRow($this->_parenthesize($row));
+        $insert = "INSERT INTO {$this->_table} {$this->_colMapping} VALUES (";
+        for ($i = 0; $i < $this->_colCount; $i++){
+            $insert .= '?, ';
         }
-    }
+        $insert = substr($insert, 0, -2);
+        $insert .= ')';
 
-    /**
-     * Inserts an individual row into the database
-     */
-    private function _insertRow($values)
-    {
-        $this->_dbConn->query("INSERT INTO " . $this->_table . ' ' . $this->_colMapping . ' VALUES ' . $row);
+        $stmt = $this->_dbConn->prepare($insert);
+
+        while (($row = $this->_getRow()) !== FALSE){
+            $stmt->execute($row);
+        }
     }
 
     /**
@@ -121,7 +129,7 @@ class CSV_Import{
      */
     private function _parenthesize($array)
     {
-        return '(' . implode(',', $row) . ')';
+        return '(' . implode(',', $array) . ')';
     }
     
     /**
