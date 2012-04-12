@@ -70,7 +70,7 @@ AND (IF(a.preview_id != 0, a.preview_id = i.id, i.seq = 1))";
         $aid = explode('-', $albumID);
         $aid = $aid[1];
 
-        $res = $db->query("SELECT CONCAT('content-', id) AS iid FROM ssp_images WHERE aid = {$aid} AND active = 1 ORDER BY id ASC");
+        $res = $db->query("SELECT CONCAT('content-', id) AS iid FROM ssp_images WHERE aid = {$aid} AND active = 1 ORDER BY seq ASC");
         
         return $this->_returnColumn($res);
     }
