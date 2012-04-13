@@ -66,4 +66,5 @@ This project is licensed under the [DBAD license](http://dbad-license.org/licens
 
 Credits
 =======
-I do most of the obsessing over this, but [Russell Stringer](https://github.com/Feodoric) had a fair hand in developing the first version of Sanitize.php, and is always the first person I turn to for code reviewing.
+* [Russell Stringer](https://github.com/Feodoric)
+* [Adam Bowen](https://github.com/adamnbowen)
